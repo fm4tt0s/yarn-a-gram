@@ -9,13 +9,14 @@ const { exec } = require("child_process");
 
 // load config
 const { apiId, apiHash, stringSession: sessionString,  useWSS,
-  channelsToWatch, apiUrl, onKeywordCommand, pollIntervalMs } = require("./config");
+  channelsToWatch, apiUrl, onKeywordCommand, pollIntervalMs, messageFetchLimit } = require("./config");
 const stringSession = new StringSession(sessionString);
 const CHANNELS_TO_WATCH = channelsToWatch;
 const API_URL = apiUrl;
 const ON_KEYWORD_COMMAND = onKeywordCommand;
 const POLL_INTERVAL_MS = pollIntervalMs || 90000;
 const USE_WSS = useWSS || false;
+const MESSAGE_FETCH_LIMIT = messageFetchLimit || 5;
 // ----------------------
 
 // helper function to post to API
@@ -74,7 +75,6 @@ const runCommand = (command) => {
   setInterval(() => {
     delete require.cache[require.resolve("./config")];
     KEYWORDS = require("./config").keywords;
-    console.log("Keywords reloaded:", KEYWORDS);
   }, 180000);
 
   console.log(client.session.save() + '\n');
@@ -104,7 +104,7 @@ const runCommand = (command) => {
     for (let i = 0; i < CHANNELS_TO_WATCH.length; i++) {
       try {
         const idKey = channelIds[i].toString();
-        const messages = await client.getMessages(channelEntities[i], { limit: 5 });
+        const messages = await client.getMessages(channelEntities[i], { limit: MESSAGE_FETCH_LIMIT });
 
         const newMessages = messages.filter(m => m.id > lastMessageId[idKey]);
         if (newMessages.length === 0) continue;

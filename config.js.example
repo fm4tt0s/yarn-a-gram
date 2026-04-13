@@ -10,6 +10,8 @@ module.exports = {
 
   pollIntervalMs: 90000, // how often to check for new messages in milliseconds (10000 = 10 seconds) - you can set this to a lower value for more real-time monitoring, but be mindful of Telegram's rate limits. 90000ms = 1.5 minutes is a good balance for most use cases.
 
+  messageFetchLimit: 5, // how many recent messages to fetch each time we check for new messages in a channel - set this to a higher value if channels are very active and you don't want to miss any messages, but keep in mind that fetching too many messages may increase the chances of hitting rate limits. 5 is usually sufficient for most channels.
+
   apiUrl: null, // optional, set to null to disable
 
   // you can use _keyword_ and _channel_ placeholders in the command, which will be replaced with the actual matched keywords and channel name

@@ -103,4 +103,5 @@ Once running, the script polls the configured channels every `pollIntervalMs` mi
 
 ## Security
 
-`config.js` contains sensitive credentials and is listed in `.gitignore`. **Never commit it.**
+⚠️ `config.js` contains sensitive credentials and is listed in `.gitignore`. **Never commit it.**
+🚨 be CAREFUL when setting `onKeywordCommand`, the `child_process` has a lot of feature, but it's still not able to put a brain on one's skull 🧠
