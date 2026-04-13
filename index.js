@@ -48,6 +48,43 @@ const runCommand = (command) => {
   });
 };
 
+// helper function to match keywords against a message text
+// each keyword can be a plain string, a regex pattern (/pattern/flags), or a fuzzy match (~term)
+const matchKeywords = (text, keywords) => {
+  const matched = [];
+
+  for (const kw of keywords) {
+    // regex: /pattern/ or /pattern/flags
+    if (kw.startsWith("/")) {
+      const lastSlash = kw.lastIndexOf("/");
+      const pattern = kw.slice(1, lastSlash);
+      const flags = kw.slice(lastSlash + 1);
+      try {
+        const regex = new RegExp(pattern, flags);
+        if (regex.test(text)) matched.push(kw);
+      } catch (e) {
+        console.error(`Invalid regex keyword: ${kw}`, e.message);
+      }
+
+    // fuzzy: ~term (checks if all characters appear in order)
+    } else if (kw.startsWith("~")) {
+      const term = kw.slice(1).toLowerCase();
+      const source = text.toLowerCase();
+      let i = 0;
+      for (const char of source) {
+        if (char === term[i]) i++;
+        if (i === term.length) break;
+      }
+      if (i === term.length) matched.push(kw);
+
+    // plain string: case-insensitive by default
+    } else {
+      if (text.toLowerCase().includes(kw.toLowerCase())) matched.push(kw);
+    }
+  }
+
+  return matched;
+};
 
 (async () => {
   console.log("Loading...");
@@ -115,9 +152,7 @@ const runCommand = (command) => {
         for (const message of newMessages.reverse()) {
           if (!message.text) continue;
 
-          const matchedKeywords = KEYWORDS.filter(kw =>
-            message.text.toLowerCase().includes(kw.toLowerCase())
-          );
+          const matchedKeywords = matchKeywords(message.text, KEYWORDS);
 
           if (matchedKeywords.length === 0) continue; // skip non-matching messages
 
