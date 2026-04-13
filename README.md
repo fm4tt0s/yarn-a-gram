@@ -47,11 +47,14 @@ module.exports = {
   keywords: ["keyword_1", "keyword_2"], // keywords to look for in messages (case-insensitive)
                                         // these are hot-reloaded every 3 minutes, no restart needed
 
-  pollIntervalMs: 90000, // how often to check for new messages in milliseconds (default: 90s)
+  pollIntervalMs: 90000, // how often to check for new messages in milliseconds (10000 = 10 seconds) - you can set this to a lower value for more real-time monitoring, but be mindful of Telegram's rate limits. 90000ms = 1.5 minutes is a good balance for most use cases.
+
+  messageFetchLimit: 5, // how many recent messages to fetch each time we check for new messages in a channel - set this to a higher value if channels are very active and you don't want to miss any messages, but keep in mind that fetching too many messages may increase the chances of hitting rate limits. 5 is usually sufficient for most channels.
 
   apiUrl: null, // optional external API to post matches to — set to null to disable
 
   onKeywordCommand: null, // optional shell command(s) to run when a keyword is found
+  
   // use _keyword_ and _channel_ as placeholders — they'll be replaced with the actual values. for example:
   // onKeywordCommand: '/opt/homebrew/bin/terminal-notifier -sound Glass -message "Keyword _keyword_ found on _channel_" -title "Yarn-A-Gram" -ignoreDnD'
   //
