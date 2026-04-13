@@ -1,4 +1,4 @@
-# 📡 yarn-a-gram
+# 📨📢 yarn-a-gram
 
 I was sick of missing that 80% discount on a protein bar box that lasted for 10min only! A Node.js script that monitors Telegram channels for specific keywords and sends you a notification whenever a match is found.
 
@@ -60,7 +60,7 @@ module.exports = {
   //
   // other practical examples:
   // play a sound on macOS:          "afplay /System/Library/Sounds/Ping.aiff"
-  // desktop notification on Linux:  "notify-send '🔔 Keyword found on Telegram!'"
+  // desktop notification on Linux:  "notify-send 'Keyword found on Telegram!'"
   // push via ntfy.sh:               "curl -d '_keyword_ found on _channel_!' ntfy.sh/your-topic"
   // run a custom script:            "bash /path/to/your/script.sh"
 };
