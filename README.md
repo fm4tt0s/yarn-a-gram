@@ -54,7 +54,7 @@ module.exports = {
   apiUrl: null, // optional external API to post matches to — set to null to disable
 
   onKeywordCommand: null, // optional shell command(s) to run when a keyword is found
-  
+
   // use _keyword_ and _channel_ as placeholders — they'll be replaced with the actual values. for example:
   // onKeywordCommand: '/opt/homebrew/bin/terminal-notifier -sound Glass -message "Keyword _keyword_ found on _channel_" -title "Yarn-A-Gram" -ignoreDnD'
   //
@@ -106,5 +106,5 @@ Once running, the script polls the configured channels every `pollIntervalMs` mi
 
 ## Security
 
-⚠️ `config.js` contains sensitive credentials and is listed in `.gitignore`. **Never commit it.**
-🚨 be CAREFUL when setting `onKeywordCommand`, the `child_process` has a lot of feature, but it's still not able to put a brain on one's skull 🧠
+- ⚠️ `config.js` contains sensitive credentials and is listed in `.gitignore`. **Never commit it.**
+- 🚨 be CAREFUL when setting `onKeywordCommand`, the `child_process` has a lot of feature, but it's still not able to put a brain on one's skull 🧠
