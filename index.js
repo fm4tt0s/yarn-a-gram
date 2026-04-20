@@ -135,7 +135,7 @@ const matchKeywords = (text, keywords) => {
     console.log(`Last message ID for ${CHANNELS_TO_WATCH[i]}: ${lastMessageId[channelIds[i].toString()]}`);
   }
 
-  console.log(`\nPolling every ${POLL_INTERVAL_MS / 1000}s for new messages...`);
+  console.log(`\nPolling every ${POLL_INTERVAL_MS / 1000}s for last ${MESSAGE_FETCH_LIMIT} messages...`);
 
   setInterval(async () => {
     for (let i = 0; i < CHANNELS_TO_WATCH.length; i++) {
@@ -202,6 +202,7 @@ const matchKeywords = (text, keywords) => {
               command = command.replace(/_channel_/g, CHANNELS_TO_WATCH[i]);
             }
             runCommand(command);
+            console.log('-----------------------');
           }
         }
       } catch (err) {
