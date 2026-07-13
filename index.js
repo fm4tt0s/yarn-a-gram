@@ -133,6 +133,8 @@ const matchKeywords = (text, keywords) => {
     const messages = await client.getMessages(channelEntities[i], { limit: 1 });
     lastMessageId[channelIds[i].toString()] = messages[0]?.id || 0;
     console.log(`Last message ID for ${CHANNELS_TO_WATCH[i]}: ${lastMessageId[channelIds[i].toString()]}`);
+    // mark channel as read to avoid notifications for old messages
+    await client.markAsRead(channelEntities[i]);
   }
 
   console.log(`\nPolling every ${POLL_INTERVAL_MS / 1000}s for last ${MESSAGE_FETCH_LIMIT} messages...`);
